@@ -1,3 +1,5 @@
+package logoprogram;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,9 +12,9 @@
  */
 public class Instruction {
     private String code;
-    private Double param;
+    private double param;
     
-    public Instruction(String c, Double p){
+    public Instruction(String c, double p){
         code = c;
         param = p;
     }
@@ -21,30 +23,30 @@ public class Instruction {
         return code;
     }
     
-    public Double getParam(){
+    public double getParam(){
         return param;
     }
     
-    public Boolean isRepInstruction(){
+    public boolean isRepInstruction(){
         return code.equals("REP") || code.equals("END");
         
     }
     
-    public Boolean isCorrect(){
-        Boolean error = false;
+    public boolean isCorrect(){
+        boolean correct = true;
         if (errorCode() != 0){
-            error = true;
+            correct = false;
         }
-        return error;
+        return correct;
     }
     
-    public Integer errorCode(){
+    public int errorCode(){
         int error_case = 0;
 
         String[] codes = {"REP", "FWD", "ROT", "END", "PEN"};
-        Boolean trigger = true;
+        boolean trigger = true;
         
-        // Case 1
+        // Case 1: the code is not among the valid logo codes
         for(int i = 0; i < codes.length; i++){
             if (codes[i].equals(code)){
                 trigger = false;
@@ -54,30 +56,30 @@ public class Instruction {
             error_case = 1;
         }
         
-        // Case 2
+        // Case 2: "FWD" code, the param is not in the interval (-1000,1000)
         if (code.equals("FWD")){
             if (!(param > -1000 && 1000 > param)){
                 error_case = 2;
             }
         }
         
-        // Case 3
+        // Case 3: "PEN" code has param dierent from 0 or 1
         if (code.equals("PEN")){
-            if (param != 0 || param != 1){
+            if (param != 0 && param != 1){
                 error_case = 3;
             }
         }
         
-        // Case 4
+        // Case 4: "ROT" code has param greater or equal 360, or less or equal -360
         if (code.equals("ROT")){
-            if(!(param >= -360 && 360 >= param)){
+            if(!(param > -360 && 360 > param)){
                 error_case = 4;
             }
         }
         
-        // Case 5
+        // Case 5: "REP" code has param less or equal 0 or greater or equal 1000
         if (code.equals("REP")){
-            if(param <= 0 || 1000 >= param){
+            if(param <= 0 || 1000 <= param){
                 error_case = 5;
             }
         } 
@@ -85,6 +87,7 @@ public class Instruction {
     }
     
     public String info(){
-        return null;
+        return(code+" "+ param);
+      
     }
 }
