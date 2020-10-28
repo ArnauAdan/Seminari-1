@@ -1,37 +1,65 @@
 package logoprogram;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author eleison
  */
+
+/**
+ * Instruction. Classe encarregada de representar l'objecte 
+ * d'una instrucció del programa LogoProgram. Una instrucció estarà formada
+ * per un codi i un paràmetre. 
+ * 
+ * Instruction permet que la tortuga es comporti tal com la instrucció indiqui.
+ */
+
 public class Instruction {
     private String code;
     private double param;
     
+    /**
+     * Instruction(). Constructor, crea instàncies de la classe
+     * assignant-ne els seus paràmetres.
+     * @param c és el primer atribut d'Instruction, informa
+     * sobre el codi de la instrucció a instanciar.
+     * @param p és el segon atribut d'Instruction, informa sobre
+     * el paràmetre de la instruccio a instanciar.
+     */
     public Instruction(String c, double p){
         code = c;
         param = p;
     }
-    
+    /**
+     * getCode(). Getter
+     * @return String Retorna l'atribut code
+     * (el codi de la instrucció).
+     */
     public String getCode(){
         return code;
     }
-    
+    /**
+     * getParam(). Getter
+     * @return double Retorna l'atribut param
+     * (el paràmetre de la instrucció).
+     */
     public double getParam(){
         return param;
     }
-    
+    /**
+     * isRepInstruction()
+     * @return boolean Retorna cert quan la instrucció actual és
+     * REP o END i fals pel cas contrari.
+     */
     public boolean isRepInstruction(){
         return code.equals("REP") || code.equals("END");
         
     }
-    
+    /**
+     * isCorrect()
+     * @return boolean Retorna cert quan no es
+     * troba cap error per la instrucció actual.
+     * Retornarà fals en cas contrari.
+     */    
     public boolean isCorrect(){
         boolean correct = true;
         if (errorCode() != 0){
@@ -39,7 +67,13 @@ public class Instruction {
         }
         return correct;
     }
-    
+    /**
+     * errorCode()
+     * @return int Retorna un enter representant el tipus
+     * d'error que figura en la instrucció. Quan no n'apareix 
+     * cap retorna un 0 i, si en troba algun, estudia el cas i 
+     * brinda l'enter que el representa.
+     */      
     public int errorCode(){
         int error_case = 0;
 
@@ -85,9 +119,13 @@ public class Instruction {
         } 
         return error_case;
     }
-    
+    /**
+     * info()
+     * @return String Retorna els atributs code i
+     * param de la instrucció actual en forma 
+     * d'String (informació sobre la instrucció actual).
+     */      
     public String info(){
-
         return (code + "" + param);
     }
 }
