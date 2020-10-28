@@ -87,7 +87,10 @@ public class Instruction {
     }
     
     public String info(){
-        return(code+" "+ param);
-      
+
+        return (code + "" + param);
     }
 }
+
+
+
