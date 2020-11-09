@@ -5,6 +5,7 @@
  */
 package logoapp;
 import java.awt.Graphics;
+import java.util.Arrays;
 /**
  *
  * @author eleison
@@ -66,10 +67,11 @@ public class Turtle {
     public void forward(double distance, Graphics g) {
         int x2 = (int)(Math.cos(Math.toRadians(dirX)) * distance);
         int y2 = (int)(Math.sin(Math.toRadians(dirY)) * distance);
-        g.drawLine(x , y, x + x2, y + y2);
         
-        x = x2;
-        y = y2;        
+        this.x += x2;
+        this.y += y2;      
+        System.out.println(x);
+        System.out.println(y);
     }
     
     public void turn(double a) {
@@ -95,15 +97,17 @@ public class Turtle {
         int nPoints = 3;
         int[] xc = new int[nPoints];
         int[] yc = new int[nPoints];
-        xc[0] = (int)(x + 8 * dirY); 
-        yc[0] = (int)(y - 8 * dirX);
-        xc[1] = (int)(x - 8 * dirY); 
-        yc[1] = (int)(y + 8 * dirX);
-        xc[2] = (int)(x + 16 * dirX); 
-        yc[2] = (int)(y + 16 * dirY);
+        double radY = (Math.PI * dirY) / 180;
+        double radX = (Math.PI * dirX) / 180;
         
+        xc[0] = (int)(x + 8 * radY); 
+        yc[0] = (int)(y - 8 * radX);
+        xc[1] = (int)(x - 8 * radY); 
+        yc[1] = (int)(y + 8 * radX);
+        xc[2] = (int)(x + 16 * radX); 
+        yc[2] = (int)(y + 16 * radY);         
         // Graphics method to draw a Polygon where the
         // attributes require the x and y coordinates
-        g.drawPolygon(xc ,yc, nPoints);        
+        g.drawPolygon(xc ,yc, nPoints);
     }
 }

@@ -19,11 +19,11 @@ public class LogoWindow extends javax.swing.JFrame {
         initComponents();
         // add here the creation of instances of
         // logo and program classes
-        Logo logo = new Logo(800, 600);
-        Program prog = new Program("Square");
+        this.logo = new Logo(800, 600);
+        this.prog = new Program("Square");
         // add to the program instance the square program
         prog.addInstruction("REP", 4);
-        prog.addInstruction("FWD", 100);
+        prog.addInstruction("FWD", 30);
         prog.addInstruction("ROT", 90);
         prog.addInstruction("END", 1);        
         setSize(logo.getWidth(), logo.getHeight());
@@ -33,8 +33,8 @@ public class LogoWindow extends javax.swing.JFrame {
         super.paint(g);
         // add here a call to the execute method
         // of the logo program
-        //logo.execute(prog, g);
-        System.out.print(prog.getName());
+        logo.execute(prog, g);
+
     }
 
     /**
