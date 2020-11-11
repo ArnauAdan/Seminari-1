@@ -10,6 +10,7 @@ import java.awt.Graphics;
  * @author eleison
  */
 public class LogoWindow extends javax.swing.JFrame {
+    // Attributes
     Logo logo;
     Program prog;
     Program prog2;
@@ -112,6 +113,7 @@ public class LogoWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LogoWindow().setVisible(true);
+                
             }
             
         });

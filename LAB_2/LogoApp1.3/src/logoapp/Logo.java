@@ -4,6 +4,7 @@ import java.awt.Graphics;
  *
  * @author eleison
  */
+
 /**
  * Logo. L'objecte conté l'ambient on opera la tortuga amb els el·lements 
  * necessaris per executar un programa i dibuixar l'output per pantalla 
@@ -69,6 +70,9 @@ public class Logo {
      * Agafa la instància d'un programa definit i l'objecte Graphics per 
      * representar l'execució de cada instrucció d'aquest en l'ambient 
      * (pantalla) usant la tortuga.
+     * @param p (Classe Program, on habita el programa a executar)
+     * @param g (Classe Grpahics on habiten els mètodes necessaris per
+     * dibuixar)
      */
     public void execute(Program p, Graphics g) {
 
@@ -99,12 +103,7 @@ public class Logo {
                 }
                 if(p.getCurrentInstruction().getCode().equals("FWD")) {
                     
-                    int oldx = t.getX();
-                    int oldy = t.getY();
-                    t.forward(p.getCurrentInstruction().getParam(), g);
-                    if(t.isPenOn()) {
-                        g.drawLine(oldx, oldy, t.getX(), t.getY());                        
-                    }           
+                    t.forward(p.getCurrentInstruction().getParam(), g);          
                     t.draw(g);
                 }                                                
             }
