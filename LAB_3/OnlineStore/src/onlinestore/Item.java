@@ -21,6 +21,15 @@ public abstract class Item {
     private double cost;
     private Package pack;//COMPOSITION RELATION WITH PACKAGE CLASS
     
+    public Item(){
+        name = null;
+        type = null;
+        size = null;
+        cost = 0;
+        pack = null;
+        
+    }
+    
     public Item(String n, String t, double[] s, double c){    
         name = n;
         type = t;
@@ -65,42 +74,37 @@ public abstract class Item {
     }
     
     public void assignBestPackage(LinkedList< Package > lp){
-        if(size[2] <= 3){
+        if(size[2] < 3){
             //use envelope
             double item_area = size[0] * size[1];
-            if(0 < item_area && item_area <= 609){
-                if(0 < item_area && item_area <= 231){
-                    pack = lp.get(2);
+            for(int i = 0; i < 2; i++){
+                Package envelope = lp.get(i);
+                double envelope_area = envelope.getHeight() * envelope.getWidth();                
+                if(envelope_area >= item_area){
+                    pack = lp.get(i); 
+                    break;
                 }
-                else{
-                    pack =lp.get(1);
-                }                
             }
-            else{
-                pack = lp.get(0);
-            }
+            String envelope_name = ((Envelope)pack).getName();
+            System.out.println("Envelope" + envelope_name + "Assigned to item" + name);
         }
         else{
-            //use box
-            double item_vol = size[0] * size[1] * size[2];
-            double[] check = new double[4];
-            check[0] = Math.abs(item_vol - 36000);
-            check[1] = Math.abs(item_vol - 61250);
-            check[2] = Math.abs(item_vol - 96000);
-            check[3] = Math.abs(item_vol - 264000);
-            double minValue = check[0];
-            int index = 0;
-            for(int i = 0; i < check.length; i++){
-                if(check[i] < minValue){
-                    minValue = check[i];
-                    index = i;
+            //use box   
+            double item_volume = size[0] * size[1] * size[3];
+            for(int i = 3; i < lp.size(); i++){
+                Package box = lp.get(i);
+                double box_volume = box.getHeight() * box.getWidth() * ((Box)box).getDepth();
+                if(box_volume >= item_volume){
+                    pack = lp.get(i);
+                    break;
                 }
             }
-            pack = lp.get(index + 3);    
-        }
-        System.out.println(pack.getHeight());//TESTTESTTESTTEST   
-        System.out.println(pack.getWidth());// TESTTESTTESTTEST    
-    }//OPTIMIZE CODE
+            double box_h = ((Box)pack).getHeight();
+            double box_w = ((Box)pack).getWidth();
+            double box_d = ((Box)pack).getDepth();
+            System.out.println("Box with size" + box_w + "," + box_h + "," + box_d + "Assigned to item" + name);
+        }        
+    }
     
     public abstract double getPrice();
     

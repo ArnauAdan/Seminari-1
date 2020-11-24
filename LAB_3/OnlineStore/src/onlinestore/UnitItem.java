@@ -25,12 +25,12 @@ public class UnitItem extends Item{
     
     @Override
     public double getPrice(){
-        return unitPrice;
+        return unitPrice * quantity;
     }
     
     @Override
     public double calculateProfit(){
-        return (unitPrice - super.getCost()) * quantity;// take into acc quantityremaining?
+        return (unitPrice - super.getCost()) * quantity;
     }
     
     public double sell(int q){

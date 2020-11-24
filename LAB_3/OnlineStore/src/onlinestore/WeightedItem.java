@@ -29,10 +29,10 @@ public class WeightedItem extends Item{
     
     @Override
     public double calculateProfit(){
-        return (pricePerWeight - super.getCost()) * weight;
+        return (pricePerWeight - this.getCost()) * weight;
     }
     
-    public double sell(int q){
+    public double sell(double q){
         return 0;//implement whatever sell is 
     }
 }

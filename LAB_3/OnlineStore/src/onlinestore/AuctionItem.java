@@ -12,7 +12,7 @@ package onlinestore;
 public class AuctionItem extends Item{
     
     private double currentPrice;
-    // private Buyer bidder;
+    private Buyer bidder;
     private String deadline;
     private static final double fee = 5;
     private static final double charge = 0.05;
@@ -31,16 +31,20 @@ public class AuctionItem extends Item{
     
     @Override
     public double calculateProfit(){
-        return 0;// implement calculus
+        return fee + (currentPrice * charge);
     }
     
-    //public void makeBid()
+    public void makeBid(Buyer b, double p){
+        
+    }
     
     public boolean frozen(String d){
         return true;// implement
     }
     
-    //public Buyer getBuyer()
+    public Buyer getBuyer(){
+        return bidder;
+    }
     
     public String getDeadline(){
         return deadline;
