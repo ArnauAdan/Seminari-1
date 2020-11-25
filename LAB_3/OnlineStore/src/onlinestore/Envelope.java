@@ -28,7 +28,7 @@ public class Envelope extends Package {
     }
     
     public boolean isSuitable(int[] size){
-       return false;// implement issuitable
+       return size.length<=2;// implement issuitable
     }
     
 }
