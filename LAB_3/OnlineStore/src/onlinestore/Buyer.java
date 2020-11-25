@@ -28,6 +28,7 @@ public class Buyer extends User {
         System.out.println(this.getName() + "is buying item" + i.getName() + "for" + i.getPrice() + "euros");
     }
     
+    //No hauria d'estar connectat amb sell (mètode de seller)?
     public boolean pay(double price){
         System.out.println("Connectant amb el banc...");
         System.out.println("...");
