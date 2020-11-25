@@ -28,6 +28,6 @@ public class Box extends Package {
     }
     
     public boolean isSuitable(int[] size){
-        return false;//implementissuitable
+        return size[2]>3;//implementissuitable
     }
 }
