@@ -6,7 +6,6 @@
 package onlinestore;
 
 import java.util.LinkedList;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -24,16 +23,13 @@ public class Buyer extends User {
     }
     
     public void buy(Item i){
-        boughtItems.add(i);
-        System.out.println(this.getName() + "is buying item" + i.getName() + "for" + i.getPrice() + "euros");
+        boughtItems.add(i);       
+        System.out.println(this.getName() + " is buying item " + i.getName() + " for " + i.getPrice() + " euros ");
+        this.pay(i.getPrice());
     }
     
-    //No hauria d'estar connectat amb sell (mètode de seller)?
     public boolean pay(double price){
-        System.out.println("Connectant amb el banc...");
-        System.out.println("...");
-        System.out.println("Operació acceptada");
-        System.out.println(price + "$ deduïts del compte" + accountNumber);
+        System.out.println("Price " + price + " is getting charged into account " + accountNumber + " from user " + this.getName());
         return true;
     }
 }

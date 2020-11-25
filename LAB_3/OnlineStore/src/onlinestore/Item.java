@@ -86,11 +86,17 @@ public abstract class Item {
                 }
             }
             String envelope_name = ((Envelope)pack).getName();
-            System.out.println("Envelope" + envelope_name + "Assigned to item" + name);
+            
+            if(((Envelope)pack).isSuitable(size)){
+                System.out.println("Envelope " + envelope_name + " assigned to item " + name);            
+            }
+            else{
+                System.out.println("No envelope available fits the item " + name);
+            }            
         }
         else{
             //use box   
-            double item_volume = size[0] * size[1] * size[3];
+            double item_volume = size[0] * size[1] * size[2];
             for(int i = 3; i < lp.size(); i++){
                 Package box = lp.get(i);
                 double box_volume = box.getHeight() * box.getWidth() * ((Box)box).getDepth();
@@ -101,9 +107,14 @@ public abstract class Item {
             }
             double box_h = ((Box)pack).getHeight();
             double box_w = ((Box)pack).getWidth();
-            double box_d = ((Box)pack).getDepth();
-            System.out.println("Box with size" + box_w + "," + box_h + "," + box_d + "Assigned to item" + name);
-        }        
+            double box_d = ((Box)pack).getDepth();        
+            if(((Box)pack).isSuitable(size)){
+                System.out.println("Box with size {" + box_w + ", " + box_h + ", " + box_d + "} assigned to item " + name);
+            }
+            else{
+                System.out.println("No box available fits the item " + name);
+            }     
+        }
     }
     
     public abstract double getPrice();

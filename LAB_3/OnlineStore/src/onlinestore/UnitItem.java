@@ -19,6 +19,7 @@ public class UnitItem extends Item{
         
         super(n, t, s, c);
         unitPrice = uprice;
+        quantity = q;
         quantityRemaining = q;
 
     }
@@ -34,6 +35,10 @@ public class UnitItem extends Item{
     }
     
     public double sell(int q){
-        return 0;//implement whatever sell is 
+        quantityRemaining = q;
+        if(quantityRemaining <= 0){
+            System.out.println("All items left of " + this.getName() + " have been sold");
+        }
+        return quantity * unitPrice;
     }
 }

@@ -26,7 +26,7 @@ public class AuctionItem extends Item{
     
     @Override
     public double getPrice(){
-        return currentPrice;// highest bid
+        return currentPrice;
     }
     
     @Override
@@ -35,11 +35,22 @@ public class AuctionItem extends Item{
     }
     
     public void makeBid(Buyer b, double p){
-        
+        if(p > currentPrice){
+            bidder = b;
+            currentPrice = p;
+            System.out.println(bidder.getName() + " is the actual highest bidder of the item " + this.getName());
+        }
     }
     
     public boolean frozen(String d){
-        return true;// implement
+        int int_input = Integer.parseInt(d);
+        int int_deadline = Integer.parseInt(deadline);
+        if(int_input >= int_deadline){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     public Buyer getBuyer(){

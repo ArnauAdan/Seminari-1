@@ -19,20 +19,25 @@ public class Administrator extends User {
     }
     
     public boolean expel(User u){
-        System.out.println(this.getName() + "expelled the user" + u.getName());
+        System.out.println(this.getName() + " expelled the user " + u.getName());
         return true;
     }
     
     public boolean manageAuction(AuctionItem a, String date){
-        System.out.println(this.getName() + "managed the item" + a.getName());
-        return true;//IMPLEMENT
+        if(a.frozen(date)){
+           System.out.println(this.getName() + " managed the item " + a.getName()); 
+           return true;
+        }
+        else{
+            return false;
+        }
     }
     
     public void printStock(LinkedList< AuctionItem > items){
-        System.out.println("Administrator" + this.getName() + "is printing the current stock");
+        System.out.println("Administrator " + this.getName() + " is printing the current stock");
         for(int i = 0; i < items.size(); i++){
             AuctionItem item = items.get(i);
-            System.out.println( item.getName() + "has current price" + item.getPrice() + "with deadline" + item.getDeadline());
+            System.out.println( item.getName() + " has current price " + item.getPrice() + " with auction deadline " + item.getDeadline());
         }
      
     }

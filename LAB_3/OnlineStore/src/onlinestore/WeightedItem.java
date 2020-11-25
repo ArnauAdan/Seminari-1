@@ -20,6 +20,7 @@ public class WeightedItem extends Item{
         super(n, t, s, c);
         pricePerWeight = wprice;
         weight = w;   
+        weightRemaining = w;
     }
     
     @Override
@@ -33,6 +34,10 @@ public class WeightedItem extends Item{
     }
     
     public double sell(double q){
-        return 0;//implement whatever sell is 
+        weightRemaining = q;
+        if(weightRemaining <= 0){
+            System.out.println("All weight of " + this.getName() + " has been sold");
+        }
+        return weight * pricePerWeight;
     }
 }

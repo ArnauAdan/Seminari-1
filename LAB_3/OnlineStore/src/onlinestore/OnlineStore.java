@@ -59,13 +59,20 @@ public class OnlineStore {
        packages.add( new Box(100, 150, 300));
        packages.add( new Box(200, 300, 500));
        
+       // Login users
+       users.get(0).login("heythere");
+       users.get(1).login("playMyGuitar");
+       users.get(2).login("donttouchme");
+       users.get(3).login("algo");
+       users.get(4).login("pass");
+       
        // Assign packages
        for(int i = 0; i < itemsAvailable.size(); i++){
            itemsAvailable.get(i).assignBestPackage(packages);
        }
        
        // Add items to sellers       
-       Seller s = (Seller)users.get(1);
+       Seller s = (Seller)users.get(3);
        for(int i = 0; i < itemsAvailable.size(); i++){
            s.addAvailableItem( itemsAvailable.get(i));
        }
@@ -75,7 +82,6 @@ public class OnlineStore {
            Item item = itemsAvailable.get(i);
            Buyer b = (Buyer)users.get(i);           
            b.buy(item);
-           b.pay(item.getPrice());
            totalPrice += item.getPrice();
            if(item instanceof UnitItem){
                ((UnitItem)item).sell( 0 );
@@ -92,7 +98,7 @@ public class OnlineStore {
        
        // Test Auction
        LinkedList< AuctionItem > lai = new LinkedList<>();
-       Administrator admin = (Administrator)users.get(2);
+       Administrator admin = (Administrator)users.get(4);
        AuctionItem auctionItem = new AuctionItem("Volvo", "Car", new double[]{250, 160, 450}, 10000.0, 10000.0, "20201010");
        lai.add(auctionItem);
        auctionItem.assignBestPackage(packages);
@@ -100,21 +106,21 @@ public class OnlineStore {
        itemsAvailable.add(auctionItem);
        
        //iffrozentemadebids
-       if(!auctionItem.frozen("20201010")){
+       if(!auctionItem.frozen("20201005")){
            auctionItem.makeBid( (Buyer)users.get(1), 11000.0);
        }
        admin.printStock(lai);
-       if(!auctionItem.frozen("20201010")){
+       if(!auctionItem.frozen("20201006")){
            auctionItem.makeBid( (Buyer)users.get(0), 10500.0);
        }
-       if(!auctionItem.frozen("20201010")){
+       if(!auctionItem.frozen("20201009")){
            auctionItem.makeBid( (Buyer)users.get(2), 13000.0);
        }
        admin.manageAuction(auctionItem, "20201010");
-       if(!auctionItem.frozen("20201010")){
+       if(!auctionItem.frozen("20201012")){
            auctionItem.makeBid( (Buyer)users.get(1), 13500.0);
        }
-       admin.expel(users.get(2));
+       admin.expel(users.get(1));
        users.remove(users.get(1));
        Buyer b = auctionItem.getBuyer();
        b.buy(auctionItem);
@@ -127,9 +133,7 @@ public class OnlineStore {
        lai.remove(auctionItem);
        itemsAvailable.remove(auctionItem);
        
-       System.out.println("Total price" + totalPrice);
-       System.out.println("Total profit" + totalProfit);
-
-    }
-    
+       System.out.println("Total price: " + totalPrice);
+       System.out.println("Total profit: " + totalProfit);
+    }    
 }

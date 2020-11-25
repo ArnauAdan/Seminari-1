@@ -27,7 +27,26 @@ public class Box extends Package {
         depth = d;
     }
     
-    public boolean isSuitable(int[] size){
-        return size[2]>3;//implementissuitable
+    public boolean isSuitable(double[] size){
+        boolean check = false;
+        for(int combinations = 0, i = 0, q = 1, j = 2; combinations < 3; combinations++, i++, q++, j++){
+            if(((this.getWidth() - size[i]) > -1) && ((this.getHeight() - size[q]) > -1) && ((this.getDepth() - size[j]) > -1)){
+                check = true;
+                break;
+            }
+            if(((this.getDepth() - size[i]) > -1) && ((this.getHeight() - size[q]) > -1) && ((this.getWidth() - size[j]) > -1)){
+                check = true;
+                break;
+            }
+            if(i == 2){
+                i = -1;
+            }
+            if(q == 2){
+                q = -1;
+            }
+            if(j == 2){
+                j = -1;
+            }
+        }return check;
     }
 }

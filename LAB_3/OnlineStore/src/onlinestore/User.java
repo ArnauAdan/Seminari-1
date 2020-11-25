@@ -27,7 +27,7 @@ public class User {
     }
     
     public String getID(){
-        return identifier;//PDF SHOWS INT RETURN TYPE
+        return identifier;
     }
     
     public String getPassword(){
@@ -39,6 +39,13 @@ public class User {
     }
     
     public boolean login(String p){
-        return p==password;//IMPLEMENT
+        if(password.equals(p)){
+            System.out.println( name + " user account login was successfull");
+            return true;
+        }
+        else{
+            System.out.println( name + " user account login failed, please try again");
+            return false;
+        }
     }
 }

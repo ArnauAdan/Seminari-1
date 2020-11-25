@@ -27,8 +27,17 @@ public class Envelope extends Package {
         name = n;
     }
     
-    public boolean isSuitable(int[] size){
-       return size.length<=2;// implement issuitable
+    public boolean isSuitable(double[] size){
+        double item_w = size[0];
+        double item_h = size[1];
+        if(this.getWidth() - item_w >= 0 && this.getHeight() - item_h >= 0){
+            return true;
+        }
+        else if(this.getWidth() - item_h >= 0 && this.getHeight() - item_w >= 0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
-    
 }
