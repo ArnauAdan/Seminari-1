@@ -39,6 +39,6 @@ public class User {
     }
     
     public boolean login(String p){
-        return true;//IMPLEMENT
+        return p==password;//IMPLEMENT
     }
 }
