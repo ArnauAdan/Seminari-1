@@ -5,13 +5,17 @@
             <url>src/onlinestore/OnlineStore.java</url>
             <bookmark id="1">
                 <name/>
-                <line>9</line>
+                <line>4</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Pau/Documents/NetBeansProjects/OnlineStore/src/onlinestore/Envelope.java</file>
+            <file>file:/C:/Users/Pau/Documents/NetBeansProjects/OnlineStore/src/onlinestore/Box.java</file>
+            <file>file:/C:/Users/Pau/Documents/NetBeansProjects/OnlineStore/src/onlinestore/Package.java</file>
+            <file>file:/C:/Users/Pau/Documents/NetBeansProjects/OnlineStore/src/onlinestore/Item.java</file>
             <file>file:/C:/Users/Pau/Documents/NetBeansProjects/OnlineStore/src/onlinestore/OnlineStore.java</file>
         </group>
     </open-files>

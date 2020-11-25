@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package onlinestore;
 
 import java.util.LinkedList;
@@ -10,8 +5,19 @@ import java.util.LinkedList;
 /**
  *
  * @author Pau
+ * 
  */
 
+/**
+ * Item. Classe encarregada de representar un producte de la OnlineStore.
+ * Un producte o item estarà format pel seu nom, tipus, mida (amplada, llargada
+ * i profunditat), cost i tipus de paquet; aquest últim repressentat per la 
+ * classe Package.
+ * 
+ * Tenim tres tipus de productes: d'unitats, de pes i de subhasta. Representarem 
+ * les característiques especials de cadascun implementant-los com a classes 
+ * filles d'Item (UnitItem, WeightedItem i AuctionItem respectivament).
+ */
 public abstract class Item {
     
     
@@ -21,59 +27,113 @@ public abstract class Item {
     private double cost;
     private Package pack;//COMPOSITION RELATION WITH PACKAGE CLASS
     
+    /**
+     * Item(). Constructor buit d'Item. 
+     * Ens permet crear instàncies de la classe sense haver d'inicialitzar cap
+     * atribut.
+     */
     public Item(){
-        name = null;
-        type = null;
-        size = null;
-        cost = 0;
-        pack = null;
         
-    }
-    
+    }    
+    /**
+     * Item(n, t, s, c). Constructor d'Item. 
+     * @param n atribut d'Item, informa sobre el nom del producte.
+     * @param t atribut d'Item, informa sobre el tipus del producte.
+     * @param s atribut d'Item, informa sobre les dimensions del producte.
+     * @param c atribut d'Item, informa sobre el cost del producte.
+     * Ens permet crear instàncies de la classe inicialitzant els atributs 
+     * amb valors concrets.
+     */
     public Item(String n, String t, double[] s, double c){    
         name = n;
         type = t;
         size = s;
         cost = c;   
     }
-    
+    /**
+     * getName(). Getter
+     * @return String Retorna l'atribut name
+     * (el nom del producte).
+     */
     public String getName(){
         return name;
     }
-    
+    /**
+     * getType(). Getter
+     * @return String Retorna l'atribut type
+     * (el tipus de producte).
+     */    
     public String getType(){
         return type;
     }
-    
+    /**
+     * getSize(). Getter
+     * @return dpuble[] Retorna l'atribut size
+     * (les dimensions del producte).
+     */      
     public double[] getSize(){
         return size;
     }
-    
+    /**
+     * getCost(). Getter
+     * @return double Retorna l'atribut cost
+     * (el cost en euros del producte).
+     */     
     public double getCost(){
         return cost;
     }
-    
+    /**
+     * getPackage(). Getter
+     * @return Package Retorna l'atribut pack
+     * (el paquet assignat al producte).
+     */         
     public Package getPackage(){
         return pack;
     }
-    
+    /**
+     * setName(). Setter
+     * @param n nom del producte
+     * (estableix el nom del producte).
+     */     
     public void setName(String n){
         name = n;
     }
-    
+    /**
+     * setType(). Setter
+     * @param t tipus de producte
+     * (estableix el tipus de producte).
+     */     
     public void setType(String t){
         type = t;
     }
-    
+    /**
+     * setSize(). Setter
+     * @param s dimensions del producte
+     * (estableix les dimensions del producte).
+     */     
     public void setSize(double[] s){
         size = s;
     }
-    
+    /**
+     * setCost(). Setter
+     * @param c cost del producte
+     * (estableix el cost del producte en euros).
+     */     
     public void setCost(double c){
         cost = c;
     }
-    
-    //Aquests és un dels mètodes que no trobava la implementació, perquè no entenc com treus el if primer, m'ho pots explicar?
+    /**
+     * assignBestPackage().
+     * @param lp llista enllaçada de paquets (de la classe Package) disponibles.
+     * (Selecciona el millor paquet disponible per la instància actual d'Item
+     * basant-se en dos condicions; primerament, si la profunditat del producte
+     * és menor de 3, s'assignarà un sobre (classe Envelope, filla de Package), 
+     * altrament, usa una capsa (classe Box, filla de Package). Després, 
+     * selecciona també d'entre les varietats de sobres i capses la que millor
+     * encaixa amb l'Item actual; tot basant-se en el seu volum i les maneres 
+     * possibles d'introduir-lo al paquet (girant-lo de diverses maneres). Si no
+     * podem assignar paquet ens ho indica).
+     */     
     public void assignBestPackage(LinkedList< Package > lp){
         if(size[2] < 3){
             //use envelope
@@ -117,8 +177,20 @@ public abstract class Item {
             }     
         }
     }
-    
+    /**
+     * getPrice(). Abstract 
+     * @return double preu del producte
+     * (retornarà el preu pel producte actual. La seva implementació varia en
+     * funció del tipus d'instància del producte (d'unitats, pes o subhasta),
+     * cada tipus de producte el calcularà de manera diferent.)
+     */   
     public abstract double getPrice();
-    
+    /**
+     * calculateProfit(). Abstract
+     * @return double benefici en euros del producte
+     * (retornarà el benefici pel producte actual. La seva implementació varia 
+     * en funció del tipus d'instància del producte (d'unitats, pes o subhasta),
+     * cada tipus de producte el calcularà de manera diferent.)
+     */ 
     public abstract double calculateProfit();
 }

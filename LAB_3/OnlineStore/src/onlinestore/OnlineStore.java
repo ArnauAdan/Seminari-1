@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package onlinestore;
 
 import java.util.LinkedList;
@@ -10,9 +5,18 @@ import java.util.LinkedList;
  *
  * @author Pau
  */
+
+/**
+ * OnlineStore. Classe encarregada de representar la OnlineStore.
+ * La tenda estarà formada pels seus productes venuts i disponibles 
+ * (classe Item), els paquets disponibles (classe Package) i els usuaris 
+ * d'aquesta classe (User). També mantindrem en tot moment la inforació sobre
+ * el preu i benefici actuals de la tenda.
+ * 
+ * El seu objectiu és manegar tots els usuaris, paquets i items.
+ */
 public class OnlineStore {
     
-    //private LinkedList<User> users;
     public static LinkedList< Item > itemsSold;
     public static LinkedList< Item > itemsAvailable;
     public static LinkedList< Package > packages;
@@ -36,19 +40,19 @@ public class OnlineStore {
     public static void main(String[] args) {
         init();
         
-        // Add items
+        // Afegim items
         itemsAvailable.add( new UnitItem("Sofa", "Furniture", new double[]{280.0, 120.0, 100.0}, 300, 500, 2));
         itemsAvailable.add( new WeightedItem( "Rice", "Food", new double[]{12.0, 22.0, 2.0}, 1.5, 2.5, 50));
         itemsAvailable.add( new UnitItem( "TV", "Appliance", new double[]{100.0, 60.0, 10.0}, 600, 1000, 4));
 
-        // Add users
-        users.add( new Buyer( "John Smith", "Johnny", "heythere", "12345678"));
-        users.add( new Buyer( "Bruce Sorinsteen", "Bruce", "playMyGuitar", "87654321"));
-        users.add( new Buyer( "Donald Trump", "Dony", "donttouchme", "453627"));
-        users.add( new Seller( "Mary Jane", "Mary", "algo", "1111"));
-        users.add( new Administrator( "Joe Black", "Jefe", "pass"));
+        // Afegim users
+        users.add( new Buyer( "Pau Cobacho", "Pau", "passpass", "12345678"));
+        users.add( new Buyer( "Toni García", "Toni", "contra", "87654321"));
+        users.add( new Buyer( "Arnau Adan", "Arnau", "pass", "453627"));
+        users.add( new Seller( "Jose Rodrigo", "Jose", "algo", "1111"));
+        users.add( new Administrator( "Joel Peterson", "Jefe", "passs"));
         
-        // Add packages       
+        // Afegim paquets       
        packages.add( new Envelope(11, 21, "A5"));
        packages.add( new Envelope(21, 29, "A4"));
        packages.add( new Envelope(29, 41, "A3"));
@@ -60,18 +64,18 @@ public class OnlineStore {
        packages.add( new Box(200, 300, 500));
        
        // Login users
-       users.get(0).login("heythere");
-       users.get(1).login("playMyGuitar");
-       users.get(2).login("donttouchme");
+       users.get(0).login("passpass");
+       users.get(1).login("contra");
+       users.get(2).login("pass");
        users.get(3).login("algo");
-       users.get(4).login("pass");
+       users.get(4).login("Jefe");
        
-       // Assign packages
+       // Assignem paquets
        for(int i = 0; i < itemsAvailable.size(); i++){
            itemsAvailable.get(i).assignBestPackage(packages);
        }
        
-       // Add items to sellers       
+       // Afegim items als venedors      
        Seller s = (Seller)users.get(3);
        for(int i = 0; i < itemsAvailable.size(); i++){
            s.addAvailableItem( itemsAvailable.get(i));
@@ -105,7 +109,6 @@ public class OnlineStore {
        s.addAvailableItem(auctionItem);
        itemsAvailable.add(auctionItem);
        
-       //iffrozentemadebids
        if(!auctionItem.frozen("20201005")){
            auctionItem.makeBid( (Buyer)users.get(1), 11000.0);
        }
