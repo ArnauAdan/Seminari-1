@@ -18,16 +18,22 @@ public class Administrator extends User {
         super(n, id, p);
     }
     
+    //La meva proposta és possar-ho tot null
     public boolean expel(User u){
         System.out.println(this.getName() + "expelled the user" + u.getName());
+        u.name=null;
+        u.identifier=null;
+        u.password=null;
         return true;
     }
     
+    //Amb aquesta estic igual, no sé ni per on començar
     public boolean manageAuction(AuctionItem a, String date){
         System.out.println(this.getName() + "managed the item" + a.getName());
         return true;//IMPLEMENT
     }
     
+    //Aquesta jo l'havia simplificat a: System.out.println(items); però em sembla bé posar la resta
     public void printStock(LinkedList< AuctionItem > items){
         System.out.println("Administrator" + this.getName() + "is printing the current stock");
         for(int i = 0; i < items.size(); i++){
