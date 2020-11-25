@@ -73,6 +73,7 @@ public abstract class Item {
         cost = c;
     }
     
+    //Aquests és un dels mètodes que no trobava la implementació, perquè no entenc com treus el if primer, m'ho pots explicar?
     public void assignBestPackage(LinkedList< Package > lp){
         if(size[2] < 3){
             //use envelope
