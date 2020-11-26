@@ -74,11 +74,11 @@ public class User {
      */       
     public boolean login(String p){
         if(password.equals(p)){
-            System.out.println( name + " user account login was successfull");
+            System.out.println( identifier + " user account login was successfull");
             return true;
         }
         else{
-            System.out.println( name + " user account login failed, please try again");
+            System.out.println( identifier + " user account login failed, please try again");
             return false;
         }
     }

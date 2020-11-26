@@ -63,6 +63,7 @@ public class UnitItem extends Item{
     }
     /**
      * sell().
+     * @param q quantitat restant
      * @return double preu a pagar per totes les unitats existents.
      * (Per aquest laboratori, aquest mètode retorna el preu a pagar per totes
      * les unitats del producte i estableix la seva quantitat restant al nombre

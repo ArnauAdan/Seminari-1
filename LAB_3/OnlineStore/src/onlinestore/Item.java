@@ -25,7 +25,7 @@ public abstract class Item {
     private String type;
     private double[] size = new double[3];
     private double cost;
-    private Package pack;//COMPOSITION RELATION WITH PACKAGE CLASS
+    private Package pack;
     
     /**
      * Item(). Constructor buit d'Item. 

@@ -63,6 +63,7 @@ public class WeightedItem extends Item{
     }
     /**
      * sell().
+     * @param q quantitat restant
      * @return double preu a pagar per tot el pes existent.
      * (Per aquest laboratori, aquest mètode retorna el preu a pagar per tot
      * el pes del producte i estableix el seu pes restant al nombre q, que li 
