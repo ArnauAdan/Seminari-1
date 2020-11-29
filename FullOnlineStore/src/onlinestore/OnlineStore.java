@@ -1,6 +1,8 @@
 package onlinestore;
+import fullonlinestore.Sale;
 
 import java.util.LinkedList;
+import java.util.Calendar;
 /**
  *
  * @author Pau
@@ -23,14 +25,43 @@ public class OnlineStore {
     public static LinkedList< User > users;
     public static double totalPrice;
     public static double totalProfit;
+    public static LinkedList< Sale > sales;
+    public static int saleCounter;
     
     public static void init(){
         itemsSold = new LinkedList<>();
         itemsAvailable = new LinkedList<>();
         packages = new LinkedList<>();
         users = new LinkedList<>();
+        sales = new LinkedList<>();
         totalPrice = 0.0;
         totalProfit = 0.0;
+        //saleCounter = 0;
+    }
+    
+    public static void sell(Item i, User u){
+        //1. Update the total price and benefit of past sales.
+       //Item currentItem = sales.get(saleCounter).getSaleItem();
+       //totalPrice += currentItem.getPrice();
+       //totalProfit += currentItem.calculateProfit();
+       //1. Update the total price and benefit of past sales.
+       totalPrice += i.getPrice();
+       totalProfit += i.calculateProfit();
+       //2. Call the method buy of Buyer (and possibly sell of Seller).
+       if(u instanceof Buyer){
+           ((Buyer)u).buy(i);
+       }      
+       else if(u instanceof Seller){
+           ((Seller)u).sell(i);
+       }
+       //3. Create an instance of Sale and store this instance in the register of sales.
+       Calendar saleDate = Calendar.getInstance();
+       Calendar shippingDate = (Calendar)saleDate.clone();
+       shippingDate.add(Calendar.DATE, 3);
+       Sale currentSale = new Sale(i, u, i.getPackage(), saleDate, shippingDate);
+       sales.add(currentSale);
+       //4. Remove the item sold from the list of items
+       itemsAvailable.remove(i);
     }
     
    
@@ -110,24 +141,34 @@ public class OnlineStore {
        // Test Auction
        LinkedList< AuctionItem > lai = new LinkedList<>();
        Administrator admin = (Administrator)users.get(4);
-       AuctionItem auctionItem = new AuctionItem("Volvo", "Car", new double[]{250, 160, 450}, 10000.0, 10000.0, "20201010");
+       Calendar au_date1 = Calendar.getInstance();
+       Calendar au_date2 = Calendar.getInstance();
+       Calendar au_date3 = Calendar.getInstance();
+       Calendar au_date4 = Calendar.getInstance(); 
+       Calendar au_date5 = Calendar.getInstance();       
+       au_date1.set(2010, 2, 15); // Sun Mar 2010
+       au_date2.set(2010, 2, 5); // Sun Mar 2010
+       au_date3.set(2010, 2, 6); // Sun Mar 2010
+       au_date4.set(2010, 2, 12); // Sun Mar 2010   
+       au_date5.set(2010, 2, 16); // Sun Mar 2010
+       AuctionItem auctionItem = new AuctionItem("Volvo", "Car", new double[]{250, 160, 450}, 10000.0, 10000.0, au_date1);
        lai.add(auctionItem);
        auctionItem.assignBestPackage(packages);
        s.addAvailableItem(auctionItem);
        itemsAvailable.add(auctionItem);
        
-       if(!auctionItem.frozen("20201005")){
+       if(!auctionItem.frozen(au_date2)){
            auctionItem.makeBid( (Buyer)users.get(1), 11000.0);
        }
        admin.printStock(lai);
-       if(!auctionItem.frozen("20201006")){
+       if(!auctionItem.frozen(au_date3)){
            auctionItem.makeBid( (Buyer)users.get(0), 10500.0);
        }
-       if(!auctionItem.frozen("20201009")){
+       if(!auctionItem.frozen(au_date4)){
            auctionItem.makeBid( (Buyer)users.get(2), 13000.0);
        }
-       admin.manageAuction(auctionItem, "20201010");
-       if(!auctionItem.frozen("20201012")){
+       admin.manageAuction(auctionItem, au_date1);
+       if(!auctionItem.frozen(au_date5)){
            auctionItem.makeBid( (Buyer)users.get(1), 13500.0);
        }
        admin.expel(users.get(1));

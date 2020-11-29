@@ -1,6 +1,10 @@
 package onlinestore;
 
 import java.util.LinkedList;
+import java.util.Calendar;
+import static java.util.Calendar.DAY_OF_WEEK;
+import static java.util.Calendar.LONG;
+import java.util.Locale;
 
 /**
  *
@@ -49,7 +53,7 @@ public class Administrator extends User {
      * (S'encarrega de gestionar la subhasta del producte AuctionItem a en una 
      * data date concreta).
      */     
-    public boolean manageAuction(AuctionItem a, String date){
+    public boolean manageAuction(AuctionItem a, Calendar date){
         if(a.frozen(date)){
            System.out.println(this.getName() + " managed the item " + a.getName() + ", Buyer: " + a.getBuyer().getName()); 
            return true;
@@ -69,7 +73,7 @@ public class Administrator extends User {
         System.out.println("Administrator " + this.getName() + " is printing the current stock:");
         for(int i = 0; i < items.size(); i++){
             AuctionItem item = items.get(i);
-            System.out.println( item.getName() + " has current price " + item.getPrice() + " with auction deadline " + item.getDeadline());
+            System.out.println( item.getName() + " has current price " + item.getPrice() + " with auction deadline on day: " + item.getDeadline().get(Calendar.DATE) + " of " + item.getDeadline().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
         }    
     }
 }

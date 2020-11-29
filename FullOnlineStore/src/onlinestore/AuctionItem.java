@@ -1,4 +1,5 @@
 package onlinestore;
+import java.util.Calendar;
 
 /**
  *
@@ -13,12 +14,15 @@ package onlinestore;
  * data límit, una quota i un càrrec. Estarà caracteritzat també pels atributs
  * nom, tipus, mida cost i tipus de la classe pare donada la relació d'herència
  * amb ella.
+ * 
+ * (canvis fets: implementar les dates amb la classe Date de java.util)
  */
 public class AuctionItem extends Item{
     
     private double currentPrice;
     private Buyer bidder;
-    private String deadline;
+    //private String deadline; IMPLEMENTEM AMB CALENDAR
+    private Calendar deadline;
     private static final double fee = 5;
     private static final double charge = 0.05;
     
@@ -35,7 +39,7 @@ public class AuctionItem extends Item{
      * Ens permet crear instàncies de la classe inicialitzant els atributs 
      * amb valors concrets.
      */
-    public AuctionItem(String n, String t, double[] s, double c, double startingPrice, String d){
+    public AuctionItem(String n, String t, double[] s, double c, double startingPrice, Calendar d){
         
         super(n, t, s, c);
         currentPrice = startingPrice;
@@ -84,15 +88,10 @@ public class AuctionItem extends Item{
      * en cas afirmatiu retorna cert, fals altrament (quan qualsevol puja es
      * doni després de la seva data límit).
      */ 
-    public boolean frozen(String d){
-        int int_input = Integer.parseInt(d);
-        int int_deadline = Integer.parseInt(deadline);
-        if(int_input >= int_deadline){
-            return true;
-        }
-        else{
-            return false;
-        }
+    public boolean frozen(Calendar d){
+        //int int_input = Integer.parseInt(d); IMPLEMENTEM AMB DATE
+        //int int_deadline = Integer.parseInt(deadline); IMPLEMENTEM AMB DATE
+        return d.compareTo(deadline) > 0;
     }
     /**
      * getBuyer(). Getter
@@ -107,7 +106,7 @@ public class AuctionItem extends Item{
      * @return String Retorna l'atribut deadline
      * (la data límit del producte subhastat).
      */ 
-    public String getDeadline(){
+    public Calendar getDeadline(){
         return deadline;
     }
 }
