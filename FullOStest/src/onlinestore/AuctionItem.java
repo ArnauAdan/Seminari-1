@@ -77,7 +77,7 @@ public class AuctionItem extends Item {
         if(p > currentPrice){
             bidder = b;
             currentPrice = p;
-            System.out.println(bidder.getName() + " makes a bid for the item " + this.getName());
+            System.out.println(bidder.getName() + " makes a bid for the item " + this.getName() + " of " + p + " euros.");
         }
     }
     /**

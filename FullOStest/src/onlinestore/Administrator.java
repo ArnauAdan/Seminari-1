@@ -55,8 +55,9 @@ public class Administrator extends User {
      */     
     public boolean manageAuction(AuctionItem a, Calendar date){
         if(a.frozen(date)){
-           System.out.println(this.getName() + " managed the item " + a.getName() + ", Buyer: " + a.getBuyer().getName()); 
-           return true;
+            System.out.println("Auction of " + a.getName() + " is frozen. No more bids can be made.");
+            System.out.println(this.getName() + " managed the item " + a.getName() + ", Buyer: " + a.getBuyer().getName()); 
+            return true;
         }
         else{
             return false;

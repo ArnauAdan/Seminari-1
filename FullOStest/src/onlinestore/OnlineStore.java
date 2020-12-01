@@ -29,6 +29,7 @@ public class OnlineStore {
     public static double totalProfit;
     public static LinkedList< Sale > sales;
     public static int dateCounter;
+    //public static Calendar date;
     
     public static void init(){
         itemsSold = new LinkedList<>();
@@ -38,7 +39,7 @@ public class OnlineStore {
         sales = new LinkedList<>();
         totalPrice = 0.0;
         totalProfit = 0.0;
-        dateCounter = 1;
+        dateCounter = 0;
     }
     
     public static void sell(Item i, Buyer u, Seller s){
@@ -60,42 +61,42 @@ public class OnlineStore {
         }      
         //3. Create an instance of Sale and store this instance in the register of sales.
         Calendar saleDate = Calendar.getInstance();
+        saleDate = (Calendar)saleDate.clone();
+        saleDate.add(Calendar.DATE, dateCounter);
         Calendar shippingDate = (Calendar)saleDate.clone();
-        shippingDate.add(Calendar.DATE, 3);
+        shippingDate.add(Calendar.DATE, dateCounter + 3);
         Sale currentSale = new Sale(i, u, i.getPackage(), saleDate, shippingDate);
         sales.add(currentSale);
         itemsSold.add(i);
         //4. Remove the item sold from the list of items
-        itemsAvailable.remove(i);       
+        itemsAvailable.remove(i);   
     }
     
-    public static Calendar currentDate(Administrator admin){
+    public static void currentDate(Administrator admin){
+        dateCounter++;
+        Calendar currDate = Calendar.getInstance();
+        currDate.add(Calendar.DATE, dateCounter);          
+        System.out.println("day: " + currDate.get(Calendar.DATE) + " of " + currDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
         //llamamos a funcion
         //pedir a sistema fecha actual 
-       Calendar currDate = Calendar.getInstance();
-       currDate.add(Calendar.DATE, dateCounter);  
-       dateCounter++;            
+
+       //dateCounter++;            
         //irse a auctionits y verificar si hay elemsque expiraron el dia de hoy
         //se lleva a cabo laventa de los elems ya deadline        
         for(int i = 0; i < itemsAvailable.size(); i++){
             Item currItem = itemsAvailable.get(i);
             if(currItem instanceof AuctionItem){
                 if(admin.manageAuction((AuctionItem)currItem, currDate)){
-                    System.out.println("currentdate = deadline");
                     Buyer b = ((AuctionItem) currItem).getBuyer();
-                    sell(currItem, b, null);
-                    Sale currSale = new Sale(currItem, b, currItem.getPackage(), currDate, currDate);
-                    sales.add(currSale);                   
+                    sell(currItem, b, null);                 
                 }
             }
         }
-       System.out.println("day: " + currDate.get(Calendar.DATE) + " of " + currDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
-       return currDate;
     }
     
     public static void sortItems(){
         Collections.sort(itemsAvailable);
-        System.out.println("Sorted available items list:");
+        System.out.println("SORTED AVAILABLE ITEMS LIST:");
         for(int i = 0; i < itemsAvailable.size(); i++){
             Item currItem = itemsAvailable.get(i);
             System.out.println(currItem.getName() + " " + currItem.getPrice());
@@ -104,10 +105,10 @@ public class OnlineStore {
     
     public static void sortSales(){
         Collections.sort(sales);
-        System.out.println("Sorted sales list:");
+        System.out.println("SORTED SALES LIST:");
         for(int i = 0; i < sales.size(); i++){
             Sale currSale = sales.get(i);
-            System.out.println(currSale.getSaleDate() + " " + currSale.getSaleItem() + " " + currSale.getSaleUser());
+            System.out.println(currSale.getSaleDate().get(Calendar.DATE) + " of " + currSale.getSaleDate().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + ": " + currSale.getSaleItem().getName() + " bought by " + currSale.getSaleUser().getName());
         }
     }    
     
@@ -117,7 +118,8 @@ public class OnlineStore {
      */
     public static void main(String[] args) {
         init();
-        
+        Calendar day = Calendar.getInstance();
+        System.out.println("day: " + day.get(Calendar.DATE) + " of " + day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
         // Afegim items
         itemsAvailable.add( new UnitItem("Sofa", "Furniture", new double[]{280.0, 120.0, 100.0}, 300, 500, 2));
         itemsAvailable.add( new WeightedItem( "Rice", "Food", new double[]{12.0, 22.0, 2.0}, 1.5, 2.5, 50));
@@ -166,9 +168,10 @@ public class OnlineStore {
        Item item_1 = itemsAvailable.get(0);
        Item item_2 = itemsAvailable.get(1);
        Item item_3 = itemsAvailable.get(2);
+       sortItems();
        Buyer b_1 = (Buyer)users.get(0);
-       Buyer b_2 = (Buyer)users.get(0);
-       Buyer b_3 = (Buyer)users.get(0);
+       Buyer b_2 = (Buyer)users.get(1);
+       Buyer b_3 = (Buyer)users.get(2);
        sell(item_1, b_1, s);
        sell(item_2, b_2, s);
        sell(item_3, b_3, s);
@@ -186,7 +189,6 @@ public class OnlineStore {
        auctionItem.assignBestPackage(packages);
        s.addAvailableItem(auctionItem);
        itemsAvailable.add(auctionItem);
-
        admin.printStock(lai);   
        //day 1
        currentDate(admin);
@@ -194,12 +196,14 @@ public class OnlineStore {
        auctionItem.makeBid( (Buyer)users.get(1), 11000.0);
        currentDate(admin);
        //day 3
-       auctionItem.makeBid( (Buyer)users.get(0), 10500.0);
+       auctionItem.makeBid( (Buyer)users.get(0), 11500.0);
        currentDate(admin);
        //day 4
        auctionItem.makeBid( (Buyer)users.get(2), 13000.0);
+
+       currentDate(admin);      
        currentDate(admin);
-       currentDate(admin);
+       
        //day 6
        auctionItem.makeBid( (Buyer)users.get(1), 13500.0);
 
@@ -209,5 +213,6 @@ public class OnlineStore {
        
        System.out.println("Total price: " + totalPrice);
        System.out.println("Total profit: " + totalProfit);
+       sortSales();
     }    
 }

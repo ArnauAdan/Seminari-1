@@ -70,6 +70,8 @@ public class Sale implements Comparable {
     
     @Override
     public int compareTo(Object d){
-        return ((Calendar)d).compareTo(this.saleDate);
+        //return ((Calendar)d).compareTo(this.saleDate);
+        Calendar date = ((Sale)d).getSaleDate();
+        return date.compareTo(this.saleDate);
     }    
 }

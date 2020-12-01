@@ -45,7 +45,7 @@ public class Seller extends User {
      * per part de l'usuari Seller actual).
      */    
     public void sell(Item i){
-        System.out.println(this.getName() + " sold " + i.getName() + " and " + i.calculateProfit() + " euros are deposited to account " + accountNumber);
+        System.out.println(this.getName() + " sold " + i.getName() + " and " + i.getCost() + " euros are deposited to account " + accountNumber);
         availableItems.remove(i);//NEWLAB4
     }
     /**
