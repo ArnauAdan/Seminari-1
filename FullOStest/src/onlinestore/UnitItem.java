@@ -43,7 +43,7 @@ public class UnitItem extends Item{
     /**
      * getPrice(). Override 
      * @return double preu del producte del tipus unitat.
-     * (retornarà el preu pel producte uitat actual. El preu depèn del nombre
+     * (retornarà el preu pel producte unitat actual. El preu depèn del nombre
      * d'unitats que vulgui comprar l'usuari).
      */ 
     @Override

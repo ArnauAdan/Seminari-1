@@ -29,7 +29,6 @@ public class OnlineStore {
     public static double totalProfit;
     public static LinkedList< Sale > sales;
     public static int dateCounter;
-    //public static Calendar date;
     
     public static void init(){
         itemsSold = new LinkedList<>();
@@ -43,23 +42,15 @@ public class OnlineStore {
     }
     
     public static void sell(Item i, Buyer u, Seller s){
-        
-        //1. Update the total price and benefit of past sales.
-       //Item currentItem = sales.get(saleCounter).getSaleItem();
-       //totalPrice += currentItem.getPrice();
-       //totalProfit += currentItem.calculateProfit();
-       //1. Update the total price and benefit of past sales.
-        totalPrice += i.getPrice() + i.getPackage().getCost();
-        totalProfit += i.calculateProfit();
-        System.out.println("Item profit for the online store: " + i.calculateProfit());       
-        //2. Call the method buy of Buyer (and possibly sell of Seller).        
+        totalPrice += i.getPricePlusTax() + i.getPricePlusTax();
+        totalProfit += (i.calculateProfit() + (i.getPackage().calculateProfit()));        
         if(u instanceof Buyer){
            ((Buyer)u).buy(i);
         }      
         if(s instanceof Seller){
            ((Seller)s).sell(i);
         }      
-        //3. Create an instance of Sale and store this instance in the register of sales.
+        System.out.println("Item profit for the online store: " + i.calculateProfit());  
         Calendar saleDate = Calendar.getInstance();
         saleDate = (Calendar)saleDate.clone();
         saleDate.add(Calendar.DATE, dateCounter);
@@ -68,7 +59,7 @@ public class OnlineStore {
         Sale currentSale = new Sale(i, u, i.getPackage(), saleDate, shippingDate);
         sales.add(currentSale);
         itemsSold.add(i);
-        //4. Remove the item sold from the list of items
+
         itemsAvailable.remove(i);   
     }
     
@@ -76,13 +67,8 @@ public class OnlineStore {
         dateCounter++;
         Calendar currDate = Calendar.getInstance();
         currDate.add(Calendar.DATE, dateCounter);          
-        System.out.println("day: " + currDate.get(Calendar.DATE) + " of " + currDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
-        //llamamos a funcion
-        //pedir a sistema fecha actual 
-
-       //dateCounter++;            
-        //irse a auctionits y verificar si hay elemsque expiraron el dia de hoy
-        //se lleva a cabo laventa de los elems ya deadline        
+        System.out.println("day: " + currDate.get(Calendar.DATE) + " of " + currDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)+"\n");
+        
         for(int i = 0; i < itemsAvailable.size(); i++){
             Item currItem = itemsAvailable.get(i);
             if(currItem instanceof AuctionItem){
@@ -119,7 +105,7 @@ public class OnlineStore {
     public static void main(String[] args) {
         init();
         Calendar day = Calendar.getInstance();
-        System.out.println("day: " + day.get(Calendar.DATE) + " of " + day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
+        System.out.println("day: " + day.get(Calendar.DATE) + " of " + day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)+"\n");
         // Afegim items
         itemsAvailable.add( new UnitItem("Sofa", "Furniture", new double[]{280.0, 120.0, 100.0}, 300, 500, 2));
         itemsAvailable.add( new WeightedItem( "Rice", "Food", new double[]{12.0, 22.0, 2.0}, 1.5, 2.5, 50));
@@ -172,6 +158,7 @@ public class OnlineStore {
        Buyer b_1 = (Buyer)users.get(0);
        Buyer b_2 = (Buyer)users.get(1);
        Buyer b_3 = (Buyer)users.get(2);
+       System.out.println("SALES: ");
        sell(item_1, b_1, s);
        sell(item_2, b_2, s);
        sell(item_3, b_3, s);
@@ -183,36 +170,31 @@ public class OnlineStore {
        au_date5.add(Calendar.DATE, +4);
        
         
-
+       System.out.println("AUCTION SALE:");
        AuctionItem auctionItem = new AuctionItem("Volvo", "Car", new double[]{250, 160, 450}, 10000.0, 10000.0, au_date5);
        lai.add(auctionItem);
        auctionItem.assignBestPackage(packages);
        s.addAvailableItem(auctionItem);
        itemsAvailable.add(auctionItem);
        admin.printStock(lai);   
-       //day 1
        currentDate(admin);
-       //day 2
        auctionItem.makeBid( (Buyer)users.get(1), 11000.0);
        currentDate(admin);
-       //day 3
        auctionItem.makeBid( (Buyer)users.get(0), 11500.0);
        currentDate(admin);
-       //day 4
        auctionItem.makeBid( (Buyer)users.get(2), 13000.0);
-
        currentDate(admin);      
        currentDate(admin);
-       
-       //day 6
        auctionItem.makeBid( (Buyer)users.get(1), 13500.0);
 
        admin.expel(users.get(1));
        users.remove(users.get(1));
        lai.remove(auctionItem);
        
-       System.out.println("Total price: " + totalPrice);
-       System.out.println("Total profit: " + totalProfit);
        sortSales();
+       System.out.println("STORE ANALYTICS: ");
+       System.out.println("Total items and packets price (+iva): " + totalPrice + " euros.");
+       System.out.println("Total items and packets profit: " + totalProfit + " euros.");
+       
     }    
 }

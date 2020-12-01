@@ -87,6 +87,6 @@ public class Box extends Package {
     
     @Override
     public double getPrice(){
-        return (this.getHeight() * this.getWidth() * this.getDepth()) * 0.5;
+        return (15 * Math.log(( this.getHeight() * this.getWidth() * this.getDepth() ) * 0.001));
     }
 }

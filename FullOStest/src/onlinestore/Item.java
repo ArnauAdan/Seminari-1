@@ -26,7 +26,7 @@ public abstract class Item implements Taxable, Comparable {
     private double[] size = new double[3];
     private double cost;
     private Package pack;
-    private double itemsTax;
+    private double itemsTax = 0;
     
     /**
      * Item(). Constructor buit d'Item. 
@@ -203,7 +203,7 @@ public abstract class Item implements Taxable, Comparable {
     
     @Override
     public double getPricePlusTax(){
-        return this.getPrice() * (1 + iva);
+        return (this.getPrice() + (this.getPrice() * iva));
     }
     
     @Override

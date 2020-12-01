@@ -19,8 +19,7 @@ public abstract class Package implements Taxable {
     
     private int width;
     private int height;
-    private double cost;
-    private double packsTax;
+    private double packsTax = 0;
     
     /**
      * Package(w, h). Constructor de Package. 
@@ -49,11 +48,7 @@ public abstract class Package implements Taxable {
      */        
     public int getHeight(){
         return height;
-    }
-    
-    public double getCost(){
-        return cost;
-    }    
+    } 
     /**
      * setWidth(). Setter
      * @param w int amplada
@@ -76,16 +71,20 @@ public abstract class Package implements Taxable {
     
     @Override
     public double getPriceOnlyTax(){
-        return this.getCost() * iva;
+        return this.getPrice() * iva;
     }
     
     @Override
     public double getPricePlusTax(){
-        return this.getCost() * (1 + iva);
+        return (this.getPrice() + (this.getPrice() *iva));
     }
     
     @Override
     public double sumTotalTax(Taxable t){
         return packsTax += t.getPriceOnlyTax();
-    } 
+    }       
+    
+    public double calculateProfit(){
+        return this.getPrice() * 0.5;
+    }
 }
