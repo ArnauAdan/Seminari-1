@@ -3,11 +3,6 @@ package onlinestore;
 import java.util.LinkedList;
 
 /**
- *
- * @author Pau
- */
-
-/**
  * Buyer. Classe filla d'User, encarregada de representar el tipus d'usuari
  * comprador. El seu objectiu és comprar productes de la OnlineStore, cada
  * compra implicará una reducció al capital del seu compte bancari.

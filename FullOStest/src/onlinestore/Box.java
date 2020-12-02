@@ -1,17 +1,13 @@
 package onlinestore;
 
 /**
- *
- * @author Pau
- */
-
-/**
  * Box. Classe filla de Package, encarregada de representar el paquet del tipus 
  * caixa.
  * 
  * Un paquet del tipus sobre caixa definit per la seva profunditat. Estarà 
  * caracteritzat també pels atributs llargada i amplada de la classe pare donada
- * la relació d'herència amb ella.
+ * la relació d'herència amb ella. Ara, pel lab 4 hem implementat un mètode que
+ * ens permetrà calcular el preu de cada caixa.
  */
 public class Box extends Package {
     
@@ -84,9 +80,16 @@ public class Box extends Package {
             }
         }return check;
     }
-    
+    /**
+     * getPrice(). 
+     * @return double
+     * (implementem la funció definida a la classe pare: estableix el preu del 
+     * paquet on aquest ve definit per una funció que, rebent el volum en litres 
+     * de la caixa actual, estableix el seu preu segons una funció logarítmica 
+     * escalada que ens permet, per paquets grans, establir un preu còmodament).
+     */     
     @Override
     public double getPrice(){
-        return (15 * Math.log(( this.getHeight() * this.getWidth() * this.getDepth() ) * 0.001));
+        return (15 * Math.log(( this.getHeight() * this.getWidth() * this.getDepth() ) * 0.001)) + 0.7;
     }
 }

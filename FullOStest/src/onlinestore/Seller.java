@@ -1,11 +1,5 @@
 package onlinestore;
-
 import java.util.LinkedList;
-
-/**
- *
- * @author Pau
- */
 
 /**
  * Seller. Classe filla d'User, encarregada de representar el tipus d'usuari

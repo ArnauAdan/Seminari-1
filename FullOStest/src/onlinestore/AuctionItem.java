@@ -2,26 +2,20 @@ package onlinestore;
 import java.util.Calendar;
 
 /**
- *
- * @author Pau
- */
-
-/**
  * AuctionItem. Classe filla d'Item, encarregada de representar el tipus de 
  * producte que es ven per subhasta de la OnlineStore.
  * 
  * Un producte de subhasta estarà format pel seu preu i licitador actuals, la 
  * data límit, una quota i un càrrec. Estarà caracteritzat també pels atributs
  * nom, tipus, mida cost i tipus de la classe pare donada la relació d'herència
- * amb ella.
- * 
- * (canvis fets: implementar les dates amb la classe Date de java.util)
+ * amb ella. Per aquest lab implementem pels objectes de subhasta la classe
+ * Calendar, que ens ajudarà a manegar de manera més còmode les dates d'aquests
+ * objectes.
  */
 public class AuctionItem extends Item {
     
     private double currentPrice;
     private Buyer bidder;
-    //private String deadline; IMPLEMENTEM AMB CALENDAR
     private Calendar deadline;
     private static final double fee = 5;
     private static final double charge = 0.05;
@@ -89,8 +83,6 @@ public class AuctionItem extends Item {
      * doni després de la seva data límit).
      */ 
     public boolean frozen(Calendar d){
-        //int int_input = Integer.parseInt(d); IMPLEMENTEM AMB DATE
-        //int int_deadline = Integer.parseInt(deadline); IMPLEMENTEM AMB DATE
         return d.compareTo(deadline) > 0;
     }
     /**

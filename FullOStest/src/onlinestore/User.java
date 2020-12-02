@@ -1,11 +1,6 @@
 package onlinestore;
 
 /**
- *
- * @author Pau
- */
-
-/**
  * User. Classe encarregada de representar un usuari de la OnlineStore.
  * Un usuari estarà format pel seu nom, identificador i contrassenya.
  * 

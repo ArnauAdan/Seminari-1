@@ -15,9 +15,14 @@ import java.util.Locale;
  * La tenda estarà formada pels seus productes venuts i disponibles 
  * (classe Item), els paquets disponibles (classe Package) i els usuaris 
  * d'aquesta classe (User). També mantindrem en tot moment la inforació sobre
- * el preu i benefici actuals de la tenda.
+ * el preu i benefici actuals de la tenda. 
+ * Ara, pel lab 4 afegim a la tenda informació sobre les ventes 
+ * (de la classe Sales) produïdes i un comptador enter que ens ajudarà a 
+ * determinar el dia actual per la OnlineStore.
  * 
- * El seu objectiu és manegar tots els usuaris, paquets i items.
+ * El seu objectiu és manegar tots els usuaris, paquets i items ara amb les
+ * millores proposades pel lab 4: ordenar ventes per preu i data i aplicar
+ * l'impost d'iva als items i paquets.
  */
 public class OnlineStore {
     
@@ -40,10 +45,22 @@ public class OnlineStore {
         totalProfit = 0.0;
         dateCounter = 0;
     }
-    
+    /**
+     * sell(). 
+     * @param i Item producte a vendre
+     * @param u User usuari comprador del producte
+     * @param s User usuari venedor del producte
+     * (Aquest mètode s'encarrega de gestionar una venta qualsevol donat un 
+     * item, el seu comprador i venedor. Necessitarem: actualitzar el preu i 
+     * benefici actuals de la tenda, permetre als usuaris comprar o vendre,
+     * definir la venta produïda i informar-ne a la tenda i modificar la llista
+     * d'items disponibles de la tenda)
+     */       
     public static void sell(Item i, Buyer u, Seller s){
+        //1. Actualitza el preu i benefici totals de la tenda
         totalPrice += i.getPricePlusTax() + i.getPricePlusTax();
-        totalProfit += (i.calculateProfit() + (i.getPackage().calculateProfit()));        
+        totalProfit += (i.calculateProfit() + (i.getPackage().calculateProfit())); 
+        //2. Permet als usuaris comprador i venedor comprar i vendre respectivament
         if(u instanceof Buyer){
            ((Buyer)u).buy(i);
         }      
@@ -56,13 +73,22 @@ public class OnlineStore {
         saleDate.add(Calendar.DATE, dateCounter);
         Calendar shippingDate = (Calendar)saleDate.clone();
         shippingDate.add(Calendar.DATE, dateCounter + 3);
+        //3. Crea una instància de la classe Sale per a que la tenda recolleixi 
+        //la informació sobre aquesta
         Sale currentSale = new Sale(i, u, i.getPackage(), saleDate, shippingDate);
         sales.add(currentSale);
         itemsSold.add(i);
-
+        //4. Esborra l'item venut de la llista d'items disponibles de la tenda
         itemsAvailable.remove(i);   
     }
-    
+     /**
+     * currentDate(). 
+     * @param admin User usuari administrador
+     * (Aquest mètode usa l'usuari administrador passat pel paràmetre per 
+     * incrementar la data actual de la tenda i observar si per aquest dia ha 
+     * finalitzat cap subhasta. En cas afirmatiu informa a la tenda sobre la 
+     * nova venta)
+     */    
     public static void currentDate(Administrator admin){
         dateCounter++;
         Calendar currDate = Calendar.getInstance();
@@ -79,7 +105,13 @@ public class OnlineStore {
             }
         }
     }
-    
+    /**
+     * sortItems(). 
+     * (Usa la classe Collections per ordenar tots els Items de la tenda segons
+     * com indica la funció compareTo implementada a Item (els ordenarà per 
+     * preu). Un cop els tingui ordenats informarà per pantalla sobre el 
+     * resultat)
+     */     
     public static void sortItems(){
         Collections.sort(itemsAvailable);
         System.out.println("SORTED AVAILABLE ITEMS LIST:");
@@ -88,7 +120,13 @@ public class OnlineStore {
             System.out.println(currItem.getName() + " " + currItem.getPrice());
         }
     }
-    
+    /**
+     * sortSales(). 
+     * (Usa la classe Collections per ordenar totes les ventes de la tenda 
+     * segons com indica la funció sort implementada a Sales (les ordenarà per 
+     * data). Un cop les tingui ordenades informarà per pantalla sobre el 
+     * resultat)
+     */       
     public static void sortSales(){
         Collections.sort(sales);
         System.out.println("SORTED SALES LIST:");

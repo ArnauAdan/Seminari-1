@@ -1,11 +1,6 @@
 package onlinestore;
 
 /**
- *
- * @author Pau
- */
-
-/**
  * WeightedItem. Classe filla d'Item, encarregada de representar el tipus de 
  * producte que es ven per pes de la OnlineStore.
  * 

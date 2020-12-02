@@ -2,18 +2,18 @@ package onlinestore;
 import fullonlinestore.Taxable;
 
 /**
- *
- * @author Pau
- */
-
-/**
  * Package. Classe encarregada de representar un paquet de la OnlineStore.
  * Un paquet estarà format per les seves dimensions amplada i llargada. Els 
- * productes o Items hauràn de ser enviats en paquets.
+ * productes o Items hauràn de ser enviats en paquets. 
  * 
  * Tenim dos tipus de paquets: sobres i capses. Representarem les 
  * característiques especials de cadascun implementant-los com a classes 
- * filles de Package (Envelope i Box respectivament).
+ * filles de Package (Envelope i Box respectivament). Ara, pel lab 4 implementem
+ * la interfície Taxable, que ens permetrà dotar els paquets d'iva i de certes
+ * funcions relacionades amb lìmpost. Declarem un atribut que ens ajudarà a 
+ * mantenir en tot moment l'impost total en euros pels paquets.
+ * 
+ * Per tant, ara els paques tindràn un preu també.
  */
 public abstract class Package implements Taxable {
     
@@ -65,25 +65,50 @@ public abstract class Package implements Taxable {
     public void setHeight(int h){
         height = h;
     }
-    
+    /**
+     * getPrice(). double
+     * (estableix el preu del paquet. Cada classe filla l'implementa de manera
+     * diferent)
+     */    
     @Override
     public abstract double getPrice();
-    
+    /**
+     * getPriceOnlyTax(). double
+     * @return double
+     * (implementem el mètode de la interfície Taxable on obtenim l'import en 
+     * euros del iva aplicat al paquet actual)
+     */    
     @Override
     public double getPriceOnlyTax(){
         return this.getPrice() * iva;
     }
-    
+    /**
+     * getPricePlusTax(). double
+     * @return double
+     * (implementem el mètode de la interfície Taxable on obtenim l'import total
+     * en euros del preu del paquet juntament amb l'import d'iva)
+     */    
     @Override
     public double getPricePlusTax(){
         return (this.getPrice() + (this.getPrice() *iva));
     }
-    
+    /**
+     * sumTotalTax(). double
+     * @return double
+     * @param t objecte que implementi Taxable
+     * (implementem el mètode de la interfície Taxable on obtenim la suma en 
+     * euros de l'iva per cada paquet)
+     */        
     @Override
     public double sumTotalTax(Taxable t){
         return packsTax += t.getPriceOnlyTax();
     }       
-    
+    /**
+     * calculateProfit(). double
+     * @return double
+     * (aquest mètode calcula el benefici per la tenda per cada paquet. La tenda
+     * ven els paquets la meitat més cars que el preu pel que els va comprar)
+     */           
     public double calculateProfit(){
         return this.getPrice() * 0.5;
     }
