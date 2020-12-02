@@ -1,17 +1,13 @@
 package onlinestore;
 
 /**
- *
- * @author Pau
- */
-
-/**
  * Envelope. Classe filla de Package, encarregada de representar el paquet del 
  * tipus sobre.
  * 
  * Un paquet del tipus sobre vindrà definit pel seu nom. Estarà caracteritzat 
  * també pels atributs llargada i amplada de la classe pare donada la relació 
- * d'herència amb ella.
+ * d'herència amb ella. Ara, pel lab 4 hem implementat un mètode que ens 
+ * permetrà calcular el preu de cada sobre.
  */
 public class Envelope extends Package {
     
@@ -68,7 +64,12 @@ public class Envelope extends Package {
             return false;
         }
     }
-    
+    /**
+     * getPrice(). 
+     * @return double
+     * (implementem la funció definida a la classe pare: estableix el preu del 
+     * sobre segons l'àrea d'aquest)
+     */          
     @Override
     public double getPrice(){
         return (this.getHeight() * this.getWidth()) * 2/1189;

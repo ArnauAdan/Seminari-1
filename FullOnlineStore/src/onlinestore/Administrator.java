@@ -2,8 +2,6 @@ package onlinestore;
 
 import java.util.LinkedList;
 import java.util.Calendar;
-import static java.util.Calendar.DAY_OF_WEEK;
-import static java.util.Calendar.LONG;
 import java.util.Locale;
 
 /**
@@ -14,7 +12,9 @@ import java.util.Locale;
 /**
  * Administrator. Classe filla d'User, encarregada de representar el tipus 
  * d'usuari administrador. El seu objectiu és administrar la OnlineStore 
- * expulsant usuaris, manegant subhastes i fent inventaris de l'stock.
+ * expulsant usuaris, manegant subhastes i fent inventaris de l'stock. Ara, 
+ * en quant als canvis respectius pel lab 4 per aquesta classe, només hem 
+ * implementat les dates en el format representat per la classe Calendar.
  * 
  * Un usuari administrador  estarà format pels atributs nom, identificador i 
  * contrassenya de la classe pare donada la relació d'herència amb ella.
@@ -55,8 +55,9 @@ public class Administrator extends User {
      */     
     public boolean manageAuction(AuctionItem a, Calendar date){
         if(a.frozen(date)){
-           System.out.println(this.getName() + " managed the item " + a.getName() + ", Buyer: " + a.getBuyer().getName()); 
-           return true;
+            System.out.println("Auction of " + a.getName() + " is frozen. No more bids can be made.");
+            System.out.println(this.getName() + " managed the item " + a.getName() + ", Buyer: " + a.getBuyer().getName()); 
+            return true;
         }
         else{
             return false;

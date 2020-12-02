@@ -4,12 +4,6 @@ import java.util.LinkedList;
 import fullonlinestore.Taxable;
 
 /**
- *
- * @author Pau
- * 
- */
-
-/**
  * Item. Classe encarregada de representar un producte de la OnlineStore.
  * Un producte o item estarà format pel seu nom, tipus, mida (amplada, llargada
  * i profunditat), cost i tipus de paquet; aquest últim repressentat per la 
@@ -17,16 +11,22 @@ import fullonlinestore.Taxable;
  * 
  * Tenim tres tipus de productes: d'unitats, de pes i de subhasta. Representarem 
  * les característiques especials de cadascun implementant-los com a classes 
- * filles d'Item (UnitItem, WeightedItem i AuctionItem respectivament).
+ * filles d'Item (UnitItem, WeightedItem i AuctionItem respectivament). Ara, pel 
+ * lab 4 implementem la interfície Taxable, que ens permetrà dotar els productes 
+ * d'iva i de certes funcions relacionades amb lìmpost. Declarem un atribut que 
+ * ens ajudarà a mantenir en tot moment l'impost total en euros pels paquets. 
+ * Per últim, aquesta classe implemena també comparable; interfície que ens 
+ * permet, mitjançant un mètode, definir com voldrem més tard ordenar els 
+ * objectes d'aquesta classe.
  */
-public abstract class Item implements Taxable {
+public abstract class Item implements Taxable, Comparable {
     
     private String name;
     private String type;
     private double[] size = new double[3];
     private double cost;
     private Package pack;
-    private double itemsTax;
+    private double itemsTax = 0;
     
     /**
      * Item(). Constructor buit d'Item. 
@@ -195,19 +195,60 @@ public abstract class Item implements Taxable {
      * cada tipus de producte el calcularà de manera diferent.)
      */ 
     public abstract double calculateProfit();
-    
+    /**
+     * getPriceOnlyTax(). double
+     * @return double
+     * (implementem el mètode de la interfície Taxable on obtenim l'import en 
+     * euros del iva aplicat al producte actual)
+     */     
     @Override
     public double getPriceOnlyTax(){
         return this.getPrice() * iva;
     }
-    
+    /**
+     * getPricePlusTax(). double
+     * @return double
+     * (implementem el mètode de la interfície Taxable on obtenim l'import total
+     * en euros del preu del producte juntament amb l'import d'iva)
+     */      
     @Override
     public double getPricePlusTax(){
-        return this.getPrice() * (1 + iva);
+        return (this.getPrice() + (this.getPrice() * iva));
     }
-    
+    /**
+     * sumTotalTax(). double
+     * @return double
+     * @param t objecte que implementi Taxable
+     * (implementem el mètode de la interfície Taxable on obtenim la suma en 
+     * euros de l'iva per cada producte)
+     */     
     @Override
     public double sumTotalTax(Taxable t){
         return itemsTax += t.getPriceOnlyTax();
     }   
+    /**
+     * compareTo(). double
+     * @return int
+     * @param i objecte a considerar
+     * (implementem el mètode de la interfície Comparable on definim la manera
+     * de comparar dos objectes de tipus producte; ho farem segons el seu preu.
+     * La funció permet comparar l'objecte actual amb l'objecte a considerar 
+     * entrat pel paràmetre; retornarà un 0, enter negatiu o positiu si 
+     * el preu de l'objecte actual és menor, igual o major que l'objecte entrat 
+     * pel param.)
+     */     
+    @Override
+    public int compareTo(Object i){
+        int result;
+        if(this.getPrice() < ((Item)i).getPrice()){
+            result = -1;
+        }
+        else if(this.getPrice() > ((Item)i).getPrice()){
+            result = 1;
+        }
+        else {
+            result = 0;
+        }
+        return result;
+    }
 }
