@@ -1,6 +1,6 @@
 
+import java.util.Calendar;
 import java.util.LinkedList;
-import java.util.Date;
 
 public class HospitalManager{
 	private LinkedList< Hospital > hospitals;
@@ -81,10 +81,20 @@ public class HospitalManager{
 		hm.getHospital( 1 ).addVisitor( 62213, "Johan",22 );
 		hm.getHospital( 1 ).addVisitor( 26268, "Johanna",10 );
 		hm.getHospital( 1 ).addVisitor( 99887, "Jan",90 );
-			
-		hm.getHospital( 0 ).getAdmin( 0 ).addVisit( new Date(), "Is a cold", hm.getHospital( 0 ).getDoctor( 0 ), hm.getHospital( 0 ).getPatient( 0 ) );
-		hm.getHospital( 0 ).getAdmin( 0 ).addVisit( new Date(), "Undefined, visit with cardiologist", hm.getHospital( 0 ).getDoctor( 1 ), hm.getHospital( 0 ).getPatient( 1 ) );
-		hm.getHospital( 1 ).getAdmin( 0 ).addVisit( new Date(), "Is a cold", hm.getHospital( 0 ).getDoctor( 0 ), hm.getHospital( 0 ).getPatient( 3 ) );
+		
+                Calendar currDate = Calendar.getInstance();
+                
+		hm.getHospital( 0 ).getAdmin( 0 ).addVisit( currDate, "Is a cold", hm.getHospital( 0 ).getDoctor( 0 ), hm.getHospital( 0 ).getPatient( 0 ) );
+                
+                Calendar currDate2 = Calendar.getInstance();
+                currDate2.add(Calendar.DATE, 1);
+                
+                hm.getHospital( 0 ).getAdmin( 0 ).addVisit( currDate2, "Undefined, visit with cardiologist", hm.getHospital( 0 ).getDoctor( 1 ), hm.getHospital( 0 ).getPatient( 1 ) );
+                
+                Calendar currDate3 = Calendar.getInstance();
+                currDate3.add(Calendar.DATE, 2);
+                
+                hm.getHospital( 1 ).getAdmin( 0 ).addVisit( currDate3, "Is a cold", hm.getHospital( 0 ).getDoctor( 0 ), hm.getHospital( 0 ).getPatient( 3 ) );
 
 		hm.getHospital( 0 ).assignBeds( 0 );
 
@@ -93,6 +103,8 @@ public class HospitalManager{
 		for( int i = 0; i < 2; i++ ){
 			System.out.println( hm.getHospital( i ) );
                         hm.getHospital(i).sortPatients();
+                        System.out.println();
+                        hm.getHospital(i).sortVisits();
                         System.out.println();
 		}
 

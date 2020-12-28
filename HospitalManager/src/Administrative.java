@@ -1,6 +1,6 @@
 
 import java.util.LinkedList;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Administrative extends Person
 {	
@@ -11,7 +11,7 @@ public class Administrative extends Person
         this.hospital = hospital;
     }
 	
-    public void addVisit( Date d, String s, Doctor doc, Patient p ){
+    public void addVisit( Calendar d, String s, Doctor doc, Patient p ){
         Visit v = new Visit(d, s, doc, p);       
         doc.addVisit(v);
         p.addVisit(v);

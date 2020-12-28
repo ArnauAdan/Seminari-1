@@ -90,6 +90,14 @@ public class Hospital{
                 System.out.println(patient.toString());
             }
 	}
+        
+        public void sortVisits(){
+            Collections.sort(visits);
+            System.out.println("Visits sorted by date:");
+            for(Visit visit : visits){
+                System.out.println(visit.toString());
+            }
+        }
 	
         @Override
 	public String toString(){

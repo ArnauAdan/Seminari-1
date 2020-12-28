@@ -1,20 +1,21 @@
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class Visit implements Comparable<Visit>{
-	Date date;
+	Calendar date;
 	String summary;
 	Doctor doctor;
 	Patient patient;
 
-	public Visit( Date d, String s, Doctor doc, Patient p ){
+	public Visit( Calendar d, String s, Doctor doc, Patient p ){
 		date = d;
                 summary = s;
                 doctor = doc;
                 patient = p;
 	}
 	
-	public Date getDate(){
+	public Calendar getDate(){
 		return date;	
 	}
 	public String getSummary(){ 
@@ -29,11 +30,11 @@ public class Visit implements Comparable<Visit>{
         
         @Override
         public int compareTo(Visit v){
-           return this.date.compareTo(v.date); 
+           return v.date.compareTo(this.date); 
         }
 	
         @Override
 	public String toString(){ 
-		return date.toString() + " " + doctor.toString() + " " + patient.toString() + " " + "Summary: " + summary;
+		return date.get(Calendar.DATE) + " " + date.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " + date.get(Calendar.YEAR) + "\n" + doctor.toString() + " " + patient.toString() + " " + "Summary: " + summary;
 	}
 }
