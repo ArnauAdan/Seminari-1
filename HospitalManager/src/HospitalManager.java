@@ -8,9 +8,9 @@ public class HospitalManager{
 	private LinkedList< Administrative > administratives;
 
 	public HospitalManager(){
-		hospitals = new LinkedList< Hospital >();
-		doctors = new LinkedList< Doctor >();
-		administratives = new LinkedList< Administrative >();
+		hospitals = new LinkedList<  >();
+		doctors = new LinkedList<  >();
+		administratives = new LinkedList<  >();
 	}
 
 	public void addHospital( String name ){
@@ -92,6 +92,8 @@ public class HospitalManager{
 
 		for( int i = 0; i < 2; i++ ){
 			System.out.println( hm.getHospital( i ) );
+                        hm.getHospital(i).sortPatients();
+                        System.out.println();
 		}
 
 	}

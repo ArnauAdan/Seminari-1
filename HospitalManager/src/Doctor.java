@@ -22,19 +22,21 @@ public class Doctor extends Person
 	}
 	
 	public void listSpecialities(){
-		for(int i = 0; i < specialities.size(); i++){
-                    System.out.println(specialities.get(i) + "%n");
-                }
+            System.out.println(toString() + " has specialities: ");
+            for(int i = 0; i < specialities.size(); i++){
+                System.out.println(specialities.get(i));
+            }
 	}
 	
 	public void listVisits(){
-		for(int i = 0; i < visits.size(); i++){
-                    System.out.println(visits.get(i).toString() + "%n");
-                }
+            System.out.println(toString() + " has the following visits: ");
+            for(int i = 0; i < visits.size(); i++){             
+                System.out.println(visits.get(i).toString());
+            }
 	}
 	
         @Override
 	public String toString(){ 
-		return "Doctor " + name + " ( ID " + id + " )";
+            return "Doctor " + name + " ( ID " + id + " )";
 	}
 }

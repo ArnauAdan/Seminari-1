@@ -25,7 +25,7 @@ public class Bed{
 	}
 
 	public boolean isAvailable(){
-		return resident == null;
+		return (this.resident == null);
 	}	
 	
         @Override

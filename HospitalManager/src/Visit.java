@@ -1,7 +1,7 @@
 
 import java.util.Date;
 
-public class Visit{
+public class Visit implements Comparable<Visit>{
 	Date date;
 	String summary;
 	Doctor doctor;
@@ -26,9 +26,14 @@ public class Visit{
 	public Patient getPatient(){ 
 		return patient;	
 	}
+        
+        @Override
+        public int compareTo(Visit v){
+           return this.date.compareTo(v.date); 
+        }
 	
         @Override
 	public String toString(){ 
-		return "VISIT: " + date + " dr: " + doctor + " patient: " + patient;
+		return date.toString() + " " + doctor.toString() + " " + patient.toString() + " " + "Summary: " + summary;
 	}
 }

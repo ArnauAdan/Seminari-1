@@ -8,15 +8,22 @@ public class Resident extends Patient
 	}
 	
 	public void assignRoom( Room r ){
-		room = r;
+		room = r;         
 	}
 	
 	public void assignBed( Bed b ){
-		bed = b;	
+		bed = b;
+                b.assignResident(this);
 	}
 	
 	public Doctor getDoctor(){
-            return visits.get(0).getDoctor();
+            if(visits.size() > 0){
+                return visits.get(0).getDoctor();
+            }
+            else{
+               return null; 
+            }
+            
 	}
 	
         @Override

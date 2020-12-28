@@ -26,7 +26,7 @@ public class Room{
                       avbed = bed;
                       break;
                 }
-            }
+            }            
             return avbed;
 	}
 	
@@ -45,9 +45,9 @@ public class Room{
 	}
 	
 	public String listBeds(){
-            String listbeds = null;
+            String listbeds = "";
             for(int i = 0; i < beds.size(); i++){
-                listbeds += beds.get(i).toString() + "%n";
+                listbeds += beds.get(i).toString() + "\n";
             }
             return listbeds;
 	}

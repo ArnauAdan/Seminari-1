@@ -36,15 +36,7 @@ public abstract class Patient extends Person implements Comparable<Patient>
     
     @Override
     public int compareTo( Patient p ){
-        if(this.age < p.getAge()){
-            return -1;
-        }
-        if(this.age > p.getAge()){
-            return 1;
-        }
-        else{
-            return 0;
-        }
+        return this.age - p.age;
     }
 	
     @Override

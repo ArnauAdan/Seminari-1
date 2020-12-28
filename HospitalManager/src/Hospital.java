@@ -49,8 +49,8 @@ public class Hospital{
 	}
 	
 	public void addResident(  int id, String name, int age ){
-		Resident red = new Resident(id, name, age);
-                patients.add(red);
+      	    Resident red = new Resident(id, name, age);
+            patients.add(red);        
 	}
 	
 	public void addVisitor( int id, String name, int age ){
@@ -73,23 +73,58 @@ public class Hospital{
 	public void deletePatient( int idx ){
 		patients.remove(idx);
 	}
-	
+        
 	public void assignBeds( int adminIdx ){
 		Administrative admin = admins.get(adminIdx);
                 for(Patient patient : patients){
                     if(patient instanceof Resident){
-                        admin.assignBed((Resident)patient);
+                        admin.assignBed((Resident)patient);                        
                     }
-                }
+                }               
 	}
-
+        
 	public void sortPatients(){
-		// Add code here
+            Collections.sort(patients);
+            System.out.println("Patients sorted by age:");
+            for(Patient patient : patients){
+                System.out.println(patient.toString());
+            }
 	}
 	
         @Override
 	public String toString(){
-		return "Hospital " + name + " Administratives: ...";
+            
+            String ad = "Administratives: \n";
+            for(Administrative admin : admins){
+                ad += admin.toString() + "\n";
+            }
+ 
+            String doc = "Doctors: \n";
+            for(Doctor doctor : doctors){
+                doc += doctor.toString() + "\n";
+            }
+
+            String pat = "Patients: \n";
+            for(Patient patient : patients){
+                pat += patient.toString() + "\n";
+            }     
+            
+            String roo = "Rooms: \n";
+            for(Room room : rooms){
+                roo += room.toString() + "\n" + room.listBeds();
+            }     
+            
+            String vis = "Visits: \n";
+            for(Visit visit : visits){
+                vis += visit.toString() + "\n";
+            }               
+            
+		return "Hospital " + name + "\n" + 
+                        ad + "\n" +
+                        doc + "\n" +
+                        pat + "\n" +
+                        roo + "\n" +
+                        vis + "\n";
 	}
 
 }
