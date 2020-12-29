@@ -2,6 +2,13 @@
 import java.util.Calendar;
 import java.util.LinkedList;
 
+/**
+ * HospitalManager. Classe principal encarregada de manegar hospitals.
+ * Estarà format pels diversos hospitals a manegar i els doctors i 
+ * administradors dels quals disposem.
+ * 
+ *,
+ */
 public class HospitalManager{
 	private LinkedList< Hospital > hospitals;
 	private LinkedList< Doctor > doctors;
@@ -82,20 +89,19 @@ public class HospitalManager{
 		hm.getHospital( 1 ).addVisitor( 26268, "Johanna",10 );
 		hm.getHospital( 1 ).addVisitor( 99887, "Jan",90 );
 		
-                Calendar currDate = Calendar.getInstance();
-                
+                // obtenim la data d'avui
+                Calendar currDate = Calendar.getInstance();  
 		hm.getHospital( 0 ).getAdmin( 0 ).addVisit( currDate, "Is a cold", hm.getHospital( 0 ).getDoctor( 0 ), hm.getHospital( 0 ).getPatient( 0 ) );
                 
+                // data d'avui incrementada 1 dia
                 Calendar currDate2 = Calendar.getInstance();
-                currDate2.add(Calendar.DATE, 1);
-                
+                currDate2.add(Calendar.DATE, 1);    
                 hm.getHospital( 0 ).getAdmin( 0 ).addVisit( currDate2, "Undefined, visit with cardiologist", hm.getHospital( 0 ).getDoctor( 1 ), hm.getHospital( 0 ).getPatient( 1 ) );
                 
+                // data d'avui incrementada 2 dies
                 Calendar currDate3 = Calendar.getInstance();
-                currDate3.add(Calendar.DATE, 2);
-                
+                currDate3.add(Calendar.DATE, 2);                
                 hm.getHospital( 1 ).getAdmin( 0 ).addVisit( currDate3, "Is a cold", hm.getHospital( 0 ).getDoctor( 0 ), hm.getHospital( 0 ).getPatient( 3 ) );
-
 		hm.getHospital( 0 ).assignBeds( 0 );
 
 		System.out.println();
